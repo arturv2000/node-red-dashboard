@@ -16,11 +16,12 @@ module.exports = function (RED) {
 
         const evts = {
             // runs on UI interaction
+            onAction: true,
             // value = true | false from the ui-switch
             onChange: async function (msg, value) {
                 // ensure we have latest instance of the widget's node
                 const wNode = RED.nodes.getNode(node.id)
-
+                console.log('Switch On Change')
                 node.status({
                     fill: value ? 'green' : 'red',
                     shape: 'ring',
@@ -31,6 +32,8 @@ module.exports = function (RED) {
                 const on = RED.util.evaluateNodeProperty(config.onvalue, config.onvalueType, wNode)
                 const off = RED.util.evaluateNodeProperty(config.offvalue, config.offvalueType, wNode)
                 msg.payload = value ? on : off
+
+                msg = await appendTopic(RED, config, wNode, msg)
 
                 datastore.save(group.getBase(), node, msg)
 
@@ -93,6 +96,7 @@ module.exports = function (RED) {
                 }
             },
             beforeSend: async function (msg) {
+                console.log('Switch Before Send')
                 // ensure we have latest instance of the widget's node
                 const wNode = RED.nodes.getNode(node.id)
 

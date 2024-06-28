@@ -76,6 +76,7 @@ module.exports = function (RED) {
             onAction: true,
             beforeSend,
             onInput: async function (msg) {
+                console.log('Button OnInput')
                 if (config.emulateClick) {
                     msg = await beforeSend(msg)
 
