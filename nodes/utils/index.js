@@ -1,4 +1,4 @@
-function asyncEvaluateNodeProperty (RED, value, type, node, msg) {
+function asyncEvaluateNodeProperty(RED, value, type, node, msg) {
     return new Promise(function (resolve, reject) {
         RED.util.evaluateNodeProperty(value, type, node, msg, function (e, r) {
             if (e) {
@@ -10,7 +10,7 @@ function asyncEvaluateNodeProperty (RED, value, type, node, msg) {
     })
 }
 
-async function appendTopic (RED, config, wNode, msg) {
+async function appendTopic(RED, config, wNode, msg) {
     // populate topic if the node specifies one
     if (config.topic || config.topicType) {
         try {
@@ -33,11 +33,22 @@ async function appendTopic (RED, config, wNode, msg) {
  * Adds socket/client data to a msg payload, if enabled
  *
  */
-function addConnectionCredentials (RED, msg, conn, config) {
+function addConnectionCredentials(RED, msg, conn, config) {
     if (config.includeClientData) {
         if (!msg._client) {
             msg._client = {}
         }
+        console.log('calling callback')
+        let _answer
+        if (RED.settings?.dashboard?.socketIOGetIpFromHeader) {
+            _answer = RED.settings.dashboard.socketIOGetIpFromHeader(conn.handshake?.headers)
+        }
+        let _ipAddress = conn.handshake?.address
+        if (_answer !== undefined) {
+            _ipAddress = _answer
+        }
+        console.log('callback called')
+        console.log('Answer -> ' + _answer)
         RED.plugins.getByType('node-red-dashboard-2').forEach(plugin => {
             if (plugin.hooks?.onAddConnectionCredentials && msg) {
                 msg = plugin.hooks.onAddConnectionCredentials(conn, msg)
@@ -47,7 +58,7 @@ function addConnectionCredentials (RED, msg, conn, config) {
             ...msg._client,
             ...{
                 socketId: conn.id,
-                socketIp: conn.handshake?.address
+                socketIp: _ipAddress
             }
         }
     }
