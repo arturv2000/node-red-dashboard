@@ -11,6 +11,7 @@
     <v-data-table
         v-model="selected"
         class="nrdb-table"
+        :density="isCompactMode"
         :items="messages[id]?.payload" :return-object="true"
         :items-per-page="itemsPerPage"
         :headers="headers" :show-select="props.selectionType === 'checkbox'"
@@ -124,6 +125,9 @@ export default {
                 typeMap[col.key] = col.type
                 return typeMap
             }, {})
+        },
+        isCompactMode () {
+            return this.props?.compactMode ? 'compact' : undefined
         }
     },
     watch: {

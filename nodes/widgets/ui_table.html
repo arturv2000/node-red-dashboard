@@ -83,7 +83,8 @@
                 selectionType: { value: 'none' },
                 columns: {
                     value: null
-                }
+                },
+                compactMode: { value: false }
             },
             inputs: 1,
             outputs: 1,
@@ -304,6 +305,13 @@
         <div style="margin-bottom: 0px; width:calc(70% + 15px);">
             <input type="checkbox" id="node-input-showSearch" style="display: inline-block; width: auto;">
             <label  for="node-input-showSearch" data-i18n="ui-table.label.showSearch"></label>
+        </div>
+    </div>
+    <div class="form-row form-row-flex">
+        <label for="node-input-compactMode"><i class="fa fa-expand"></i> <span data-i18n="ui-table.label.compact"></label>
+        <div style="margin-bottom: 0px; width:calc(70% + 15px);">
+            <input type="checkbox" id="node-input-compactMode" style="display: inline-block; width: auto;">
+            <label  for="node-input-compactMode" data-i18n="ui-table.label.compactMode"></label>
         </div>
     </div>
     <div class="form-row" style="display:flex; margin-bottom: 3px;">
