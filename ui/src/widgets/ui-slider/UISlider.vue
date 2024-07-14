@@ -9,9 +9,22 @@
         :min="min" :direction="direction"
         :tick-size="4" :track-size="4"
         :color="color" :track-color="colorTrack" :thumb-color="colorThumb"
-        :max="max" :step="props.step || 1" :show-ticks="showTicks"
-        @update:model-value="onChange" @end="onBlur"
-    />
+        :max="max" :step="step || 1" :show-ticks="showTicks"
+        @update:model-value="onChange" @end="onBlur">
+        <template #append>
+            <v-text-field
+                v-if="props.appendTextBox"
+                v-model="value"
+                density="compact"
+                style="min-width: 80px"
+                type="number"
+                variant="outlined"
+                :min="min" :max="max" :step="step"
+                hide-details
+            />
+            <!-- <input v-model="value" type="number" :min="min" :max="max" :step="props.step"> -->
+        </template>
+    </v-slider>
 </template>
 
 <script>

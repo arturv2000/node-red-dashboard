@@ -38,7 +38,8 @@
                 iconAppend: { value: '' },
                 color: { value: '' },
                 colorTrack: { value: '' },
-                colorThumb: { value: '' }
+                colorThumb: { value: '' },
+                appendTextBox: { value: false }
             },
             inputs: 1,
             outputs: 1,
@@ -84,6 +85,10 @@
                 // handle no value for showTicks (from sliders created before this was a value)
                 if (!this.showTicks) {
                     $('#node-input-showTicks').val('false')
+                }
+                console.log(this.appendTextBox)
+                if (this.appendTextBox === undefined) {
+                    $('#node-input-appendTextBox').val('false')
                 }
 
                 // use jQuery UI tooltip to convert the plain old title attribute to a nice tooltip
@@ -220,6 +225,10 @@
                 <option value="all">continuously while sliding</option>
                 <option value="end">only on release</option>
             </select>
+        </div>
+        <div class="form-row">
+            <label style="width:auto" for="node-input-appendTextBox"><i class="fa fa-keyboard-o"></i> Add TextBox with slider value </label>
+            <input type="checkbox" checked id="node-input-appendTextBox" style="display:inline-block; width:auto; vertical-align:top;">
         </div>
         <div class="form-row">
             <label style="width:auto" for="node-input-passthru"><i class="fa fa-arrow-right"></i> If <code>msg</code> arrives on input, pass through to output: </label>
