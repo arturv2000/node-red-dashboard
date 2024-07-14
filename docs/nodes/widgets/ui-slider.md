@@ -22,6 +22,12 @@ props:
         description: Add <a href="https://pictogrammers.com/library/mdi/">mdi icon</a> before and after the slider. For example, "mdi-minus". Click option make icons clickable to change the value by step.
         dynamic: true    
     Output: Defines when a msg is emitted, either as the slider is moved, or as the slider is released.        
+    Tooltip:
+        description: Optional tooltip text to show, supportsHTML content
+        dynamic: true
+    Add TextBox:
+        description: Add a text box to the right side of the slider to show current value
+        dynamic: false
 dynamic:
     Label:
         payload: msg.ui_update.class
@@ -41,6 +47,9 @@ dynamic:
     Range (max):
         payload: msg.ui_update.max
         structure: ["Number"]
+    Tooltip:
+        payload: msg.ui_update.tooltip
+        structure: ["string"]
     Class:
         payload: msg.ui_update.class
         structure: ["String"]

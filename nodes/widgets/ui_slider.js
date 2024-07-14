@@ -79,6 +79,9 @@ module.exports = function (RED) {
                     if (typeof (updates.colorThumb) !== 'undefined') {
                         statestore.set(group.getBase(), node, msg, 'color-thumb', updates.colorThumb)
                     }
+                    if (typeof (updates.tooltip) !== 'undefined') {
+                        statestore.set(group.getBase(), node, msg, 'tooltip', updates.tooltip)
+                    }
                 }
                 return msg
             }

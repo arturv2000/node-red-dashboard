@@ -1,30 +1,34 @@
 <!-- Error in plugin, @end is supported from Vuetify 3.2.0 -->
 <!-- eslint-disable vuetify/no-deprecated-events -->
 <template>
-    <v-slider
-        v-model="value" :disabled="!state.enabled" :label="label" hide-details="auto"
-        :class="className" :style="`--nrdb-slider-track-color:${colorTrack};--nrdb-slider-tick-scaleY:${tickScaleY};--nrdb-slider-tick-scaleX:${tickScaleX};`"
-        :thumb-label="thumbLabel"
-        :append-icon="iconAppend" :prepend-icon="iconPrepend"
-        :min="min" :direction="direction"
-        :tick-size="4" :track-size="4"
-        :color="color" :track-color="colorTrack" :thumb-color="colorThumb"
-        :max="max" :step="step || 1" :show-ticks="showTicks"
-        @update:model-value="onChange" @end="onBlur">
-        <template #append>
-            <v-text-field
-                v-if="props.appendTextBox"
-                v-model="value"
-                density="compact"
-                style="min-width: 80px"
-                type="number"
-                variant="outlined"
-                :min="min" :max="max" :step="step"
-                hide-details
-            />
-            <!-- <input v-model="value" type="number" :min="min" :max="max" :step="props.step"> -->
+    <v-tooltip :disabled="!tooltip?.length" location="bottom" open-delay="150"> <span v-html="tooltip" />
+        <template #activator="{ props }">
+            <v-slider
+                v-bind="props"
+                v-model="value" :disabled="!state.enabled" :label="label" hide-details="auto"
+                :class="className" :style="`--nrdb-slider-track-color:${colorTrack};--nrdb-slider-tick-scaleY:${tickScaleY};--nrdb-slider-tick-scaleX:${tickScaleX};`"
+                :thumb-label="thumbLabel"
+                :append-icon="iconAppend" :prepend-icon="iconPrepend"
+                :min="min" :direction="direction"
+                :tick-size="4" :track-size="4"
+                :color="color" :track-color="colorTrack" :thumb-color="colorThumb"
+                :max="max" :step="step || 1" :show-ticks="showTicks"
+                @update:model-value="onChange" @end="onBlur">
+                <template #append>
+                    <v-text-field
+                        v-if="showTextBox"
+                        v-model="value"
+                        density="compact"
+                        style="min-width: 80px"
+                        type="number"
+                        variant="outlined"
+                        :min="min" :max="max" :step="step"
+                        hide-details
+                    />
+                </template>
+            </v-slider>
         </template>
-    </v-slider>
+    </v-tooltip>
 </template>
 
 <script>
@@ -53,7 +57,8 @@ export default {
                 iconPrepend: null,
                 color: null,
                 colorTrack: null,
-                colorThumb: null
+                colorThumb: null,
+                tooltip: null
             }
         }
     },
@@ -113,6 +118,12 @@ export default {
         },
         colorThumb: function () {
             return this.dynamic.colorThumb !== null ? this.dynamic.colorThumb : this.props.colorThumb
+        },
+        tooltip: function () {
+            return this.dynamic.tooltip !== null ? this.dynamic.tooltip : this.props.tooltip
+        },
+        showTextBox: function () {
+            return !!this.props.appendTextBox
         }
     },
     watch: {
@@ -180,6 +191,9 @@ export default {
             }
             if (typeof updates.iconPrepend !== 'undefined') {
                 this.dynamic.iconPrepend = updates.iconPrepend
+            }
+            if (typeof updates.tooltip !== 'undefined') {
+                this.dynamic.tooltip = updates.tooltip
             }
         }
     }
