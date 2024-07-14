@@ -1,7 +1,10 @@
 <!-- Error in plugin, @end is supported from Vuetify 3.2.0 -->
 <!-- eslint-disable vuetify/no-deprecated-events -->
 <template>
-    <v-tooltip :disabled="!tooltip?.length" location="bottom" open-delay="150"> <span v-html="tooltip" />
+    <v-tooltip :disabled="!tooltip?.length" location="bottom" open-delay="150">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="tooltip" />
+        <!-- eslint-disable-next-line vue/no-template-shadow -->
         <template #activator="{ props }">
             <v-slider
                 v-bind="props"
@@ -13,7 +16,8 @@
                 :tick-size="4" :track-size="4"
                 :color="color" :track-color="colorTrack" :thumb-color="colorThumb"
                 :max="max" :step="step || 1" :show-ticks="showTicks"
-                @update:model-value="onChange" @end="onBlur">
+                @update:model-value="onChange" @end="onBlur"
+            >
                 <template #append>
                     <v-text-field
                         v-if="showTextBox"
