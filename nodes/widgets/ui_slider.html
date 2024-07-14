@@ -88,7 +88,7 @@
                 }
                 console.log(this.appendTextBox)
                 if (this.appendTextBox === undefined) {
-                    $('#node-input-appendTextBox').val('false')
+                    $('#node-input-appendTextBox').prop('checked', false)
                 }
 
                 // use jQuery UI tooltip to convert the plain old title attribute to a nice tooltip
@@ -227,12 +227,12 @@
             </select>
         </div>
         <div class="form-row">
-            <label style="width:auto" for="node-input-appendTextBox"><i class="fa fa-keyboard-o"></i> Add TextBox with slider value </label>
-            <input type="checkbox" checked id="node-input-appendTextBox" style="display:inline-block; width:auto; vertical-align:top;">
+            <label style="width:auto" for="node-input-appendTextBox"><i class="fa fa-keyboard-o"></i> Add TextBox with slider value: </label>
+            <input type="checkbox" checked id="node-input-appendTextBox" style="display:inline-block; width:auto; margin-top: 0; margin-left: 3px;">
         </div>
         <div class="form-row">
             <label style="width:auto" for="node-input-passthru"><i class="fa fa-arrow-right"></i> If <code>msg</code> arrives on input, pass through to output: </label>
-            <input type="checkbox" checked id="node-input-passthru" style="display:inline-block; width:auto; vertical-align:top;">
+            <input type="checkbox" checked id="node-input-passthru" style="display:inline-block; width:auto; margin-top: 0; margin-left: 3px;">
         </div>
         <div class="form-row">
             <label style="width:auto" for="node-input-payload"><i class="fa fa-envelope-o"></i> When changed, send:</label>
