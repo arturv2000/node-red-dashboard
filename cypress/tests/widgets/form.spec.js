@@ -37,17 +37,26 @@ describe('Node-RED Dashboard 2.0 - Forms', () => {
 describe('Node-RED Dashboard 2.0 - Forms', () => {
     beforeEach(() => {
         cy.deployFixture('dashboard-forms')
-        cy.visit('/dashboard/page1')
+        cy.visit('/dashboard/page3')
     })
 
     it('permits users to set default values via msg.payload', () => {
         // check that the form is empty
-        cy.get('#nrdb-ui-widget-dashboard-ui-form-dynamic').find('[data-form="form-row-name0"]').find('input[type="text"]').should('have.value', '')
+        cy.get('[data-form="form-row-name0"]').find('input[type="text"]').should('have.value', '')
         cy.clickAndWait(cy.get('button').contains('Set Defaults'))
-        cy.get('#nrdb-ui-widget-dashboard-ui-form-dynamic').find('[data-form="form-row-name0"]').find('input[type="text"]').should('have.value', 'Overridden Default Name')
+        cy.get('[data-form="form-row-name0"]').find('input[type="text"]').should('have.value', 'Overridden Default Name')
+    })
+})
+
+describe('Node-RED Dashboard 2.0 - Forms', () => {
+    beforeEach(() => {
+        cy.deployFixture('dashboard-forms')
+        cy.visit('/dashboard/page2')
     })
 
     it('can have their content defined by msg.ui_update.options', () => {
+        cy.clickAndWait(cy.get('button').contains('Set Defaults'))
+
         cy.get('#nrdb-ui-widget-dashboard-ui-form-dynamic').find('[data-form="form-row-name"]').should('not.exist')
         cy.get('#nrdb-ui-widget-dashboard-ui-form-dynamic').find('[data-form="form-row-multiline"]').should('not.exist')
         cy.get('#nrdb-ui-widget-dashboard-ui-form-dynamic').find('[data-form="form-row-password"]').should('not.exist')
